@@ -12,6 +12,7 @@ namespace Shop.Manage.Web.Core
             // 这里写您的授权判断逻辑，授权通过返回 true，否则返回 false
             var type = httpContext.User.FindFirst("type");
             var router = httpContext.Request.Path.Value;
+            // ReSharper disable once PossibleNullReferenceException
             string[] arr = router.Split('/');
             if(type.Value == "app")
             {
