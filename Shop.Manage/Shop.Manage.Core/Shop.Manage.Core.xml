@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Shop.Manage.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Shop.Manage.Core.Models.Brand">
+            <summary>
+            品牌表
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.Brand.BrandNo">
+            <summary>
+            品牌标号
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.Brand.BrandName">
+            <summary>
+            品牌名称
+            </summary>
+        </member>
+        <member name="T:Shop.Manage.Core.Models.BusinessMessage">
+            <summary>
+            商家表
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.BusinessMessage.Name">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.BusinessMessage.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.BusinessMessage.Phone">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.BusinessMessage.CreditCode">
+            <summary>
+            统一信用码
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.BusinessMessage.Role">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.BusinessMessage.AvartId">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="T:Shop.Manage.Core.Models.Material">
+            <summary>
+            物料表
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.Material.MatNo">
+            <summary>
+            物料编码
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.Material.Name">
+            <summary>
+            物料名称
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.Material.ClassId">
+            <summary>
+            分类
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.Material.Spec">
+            <summary>
+            规格型号
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.Material.Unit">
+            <summary>
+            单位
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.Material.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.Material.PriceId">
+            <summary>
+            价格
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.Material.Img">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.Material.BrandId">
+            <summary>
+            品牌
+            </summary>
+        </member>
+        <member name="T:Shop.Manage.Core.Models.MaterialClass">
+            <summary>
+            物料分类表
+            </summary>
+        </member>
+        <member name="T:Shop.Manage.Core.Models.PriceInfo">
+            <summary>
+            价格表
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.PriceInfo.MatNo">
+            <summary>
+            物料编码
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.PriceInfo.BusinessId">
+            <summary>
+            商家Id
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.PriceInfo.Price">
+            <summary>
+            商品价格
+            </summary>
+        </member>
+        <member name="T:Shop.Manage.Core.Models.UserAddr">
+            <summary>
+            用户收货地址表
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.UserAddr.Country">
+            <summary>
+            国家/地区
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.UserAddr.Province">
+            <summary>
+            省份
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.UserAddr.City">
+            <summary>
+            市
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.UserAddr.District">
+            <summary>
+            区
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.UserAddr.Town">
+            <summary>
+            镇
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.UserAddr.Detail">
+            <summary>
+            详细地址
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.UserAddr.User">
+            <summary>
+            用户
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.UserAddr.IsDeleted">
+            <summary>
+            删除标识
+            </summary>
+        </member>
+        <member name="T:Shop.Manage.Core.Models.UserMessage">
+            <summary>
+            用户表
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.UserMessage.Name">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.UserMessage.Password">
+            <summary>
+            登录密码
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.UserMessage.Phone">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.UserMessage.AvartId">
+            <summary>
+            头像
+            </summary>
+        </member>
+    </members>
+</doc>
