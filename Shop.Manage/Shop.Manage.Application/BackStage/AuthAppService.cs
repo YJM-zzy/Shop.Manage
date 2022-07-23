@@ -3,7 +3,7 @@
 namespace Shop.Manage.Application.BackStage
 {
     [Route("api/manage/[controller]")]
-    [ApiDescriptionSettings("manage")]
+    [ApiDescriptionSettings("Manage")]
     public class AuthAppService:IDynamicApiController
     {
         protected readonly IBusinessService _businessService;
@@ -14,6 +14,54 @@ namespace Shop.Manage.Application.BackStage
             _businessService = businessService;
             _logger = logger;
         }
+
+        [HttpPost]
+        public Response<bool> Register(AddBusiness request)
+        {
+            _logger.LogError($"(/api/manage/Auth/Register request) - {JsonConvert.SerializeObject(request)}");
+            var resp = new Response<bool>();
+            try
+            {
+                var isexit = _businessService.IsPhoneExit(request.Name);
+                if (isexit)
+                {
+                    resp.Success = false;
+                    resp.Message = $"用户[{request.Name}已存在]";
+                    resp.Result = false;
+                    resp.Status = "01";
+                    _logger.LogError($"(/api/manage/auth/register response) response - {JsonConvert.SerializeObject(resp)}");
+                    return resp;
+                }
+                isexit = _businessService.IsPhoneExit(request.Phone);
+                if (isexit)
+                {
+                    resp.Success = false;
+                    resp.Message = $"用户[{request.Phone}已存在]";
+                    resp.Result = false;
+                    resp.Status = "01";
+                    _logger.LogError($"(/api/manage/auth/register response) response - {JsonConvert.SerializeObject(resp)}");
+                    return resp;
+                }
+
+                var user = request.Adapt<BusinessMessage>();
+                _businessService.AddUser(user);
+                resp.Success = true;
+                resp.Result = true;
+                resp.Status = "00";
+                _logger.LogError($"(/api/manage/auth/register response) response - {JsonConvert.SerializeObject(resp)}");
+                return resp;
+            }
+            catch (Exception e)
+            {
+                resp.Success = false;
+                resp.Message = e.Message;
+                resp.Result = false;
+                resp.Status = "99";
+                _logger.LogError($"(/api/manage/auth/register response) response - {JsonConvert.SerializeObject(resp)}");
+                return resp;
+            }
+        }
+
         [HttpPost]
         public Response<TokenResponse> Login(LoginRequest loginRequest)
         {
