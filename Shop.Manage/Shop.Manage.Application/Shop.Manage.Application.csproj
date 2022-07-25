@@ -22,4 +22,11 @@
 		<ProjectReference Include="..\Shop.Manage.Core\Shop.Manage.Core.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="MaterialService\Brands\" />
+	  <Folder Include="MaterialService\Classes\" />
+	  <Folder Include="MaterialService\Materials\" />
+	  <Folder Include="MaterialService\PriceInfos\" />
+	</ItemGroup>
+
 </Project>

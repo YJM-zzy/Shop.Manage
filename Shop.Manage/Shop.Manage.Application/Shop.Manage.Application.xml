@@ -4,5 +4,45 @@
         <name>Shop.Manage.Application</name>
     </assembly>
     <members>
+        <member name="P:Shop.Manage.Application.Reception.Dtos.UserAddrDto.Country">
+            <summary>
+            国家/地区
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Application.Reception.Dtos.UserAddrDto.Province">
+            <summary>
+            省份
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Application.Reception.Dtos.UserAddrDto.City">
+            <summary>
+            市
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Application.Reception.Dtos.UserAddrDto.District">
+            <summary>
+            区
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Application.Reception.Dtos.UserAddrDto.Town">
+            <summary>
+            镇
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Application.Reception.Dtos.UserAddrDto.Detail">
+            <summary>
+            详细地址
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Application.Reception.Dtos.UserAddrDto.Mobile">
+            <summary>
+            联系方式
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Application.Reception.Dtos.UserAddrDto.Name">
+            <summary>
+            收货人
+            </summary>
+        </member>
     </members>
 </doc>

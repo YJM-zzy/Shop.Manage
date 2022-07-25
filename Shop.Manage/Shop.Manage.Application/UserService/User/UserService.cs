@@ -34,7 +34,7 @@
             return false;
         }
 
-        public UserMessage GetUserById(int id)
+        public  UserMessage GetUserById(int id)
         {
             return _repository.FirstOrDefault(f => f.Id == id && !f.IsDeleted);
         }

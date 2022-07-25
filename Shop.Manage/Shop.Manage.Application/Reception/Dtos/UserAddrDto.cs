@@ -1,19 +1,14 @@
-﻿using Furion.DatabaseAccessor;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop.Manage.Core.Models
+namespace Shop.Manage.Application.Reception.Dtos
 {
-    /// <summary>
-    /// 用户收货地址表
-    /// </summary>
-    [Table("UserAddr")]
-    public class UserAddr:Entity
+    public class UserAddrDto
     {
+        public int Id { get; set; }
         /// <summary>
         /// 国家/地区
         /// </summary>
@@ -46,14 +41,5 @@ namespace Shop.Manage.Core.Models
         /// 收货人
         /// </summary>
         public string Name { get; set; }
-        /// <summary>
-        /// 用户
-        /// </summary>
-        public UserMessage User { get; set; }
-        public int? UserId { get; set; }
-        /// <summary>
-        /// 删除标识
-        /// </summary>
-        public bool IsDeleted { get; set; }
     }
 }

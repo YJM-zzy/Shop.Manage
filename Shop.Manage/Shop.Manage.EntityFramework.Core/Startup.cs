@@ -10,6 +10,7 @@ namespace Shop.Manage.EntityFramework.Core
             services.AddDatabaseAccessor(options =>
             {
                 options.AddDbPool<DefaultDbContext>();
+                
             }, "Shop.Manage.Database.Migrations");
         }
     }

@@ -164,6 +164,16 @@
             详细地址
             </summary>
         </member>
+        <member name="P:Shop.Manage.Core.Models.UserAddr.Mobile">
+            <summary>
+            联系方式
+            </summary>
+        </member>
+        <member name="P:Shop.Manage.Core.Models.UserAddr.Name">
+            <summary>
+            收货人
+            </summary>
+        </member>
         <member name="P:Shop.Manage.Core.Models.UserAddr.User">
             <summary>
             用户
