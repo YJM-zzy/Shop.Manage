@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace Shop.Manage.Web.Core
 {
@@ -13,6 +15,14 @@ namespace Shop.Manage.Web.Core
             services.AddJwt<JwtHandler>();
 
             services.AddCorsAccessor();
+            services.AddFileLogging("logs/application-{0:yyyy}-{0:MM}-{0:dd}.log", options =>
+            {
+                options.MinimumLevel = LogLevel.Warning;
+                options.FileNameRule = fileName =>
+                {
+                    return string.Format(fileName, DateTime.UtcNow);
+                };
+            });
 
             services.AddControllers()
                     .AddInjectWithUnifyResult();
