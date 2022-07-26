@@ -44,7 +44,7 @@ namespace Shop.Manage.Application.UserService.User
 
         public IQueryable<UserAddr> GetAllByUserId(int userId)
         {
-            return _respository.Where(w => w.UserId == userId);
+            return _respository.Where(w => w.UserId == userId && !w.IsDeleted);
         }
 
         public bool Update(UserAddr userAddr)
