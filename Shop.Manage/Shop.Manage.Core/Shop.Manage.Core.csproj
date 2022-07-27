@@ -14,6 +14,7 @@
     <PackageReference Include="Furion" Version="4.0.1" />
     <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.0.2" />
     <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.0.2" />
+    <PackageReference Include="MiniExcel" Version="1.26.5" />
   </ItemGroup>
 
 </Project>

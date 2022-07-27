@@ -23,7 +23,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="MaterialService\Classes\" />
 	  <Folder Include="MaterialService\Materials\" />
 	  <Folder Include="MaterialService\PriceInfos\" />
 	</ItemGroup>
