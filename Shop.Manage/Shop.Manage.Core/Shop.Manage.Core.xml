@@ -204,7 +204,7 @@
             电话
             </summary>
         </member>
-        <member name="P:Shop.Manage.Core.Models.UserMessage.AvartId">
+        <member name="P:Shop.Manage.Core.Models.UserMessage.AvatarUrl">
             <summary>
             头像
             </summary>

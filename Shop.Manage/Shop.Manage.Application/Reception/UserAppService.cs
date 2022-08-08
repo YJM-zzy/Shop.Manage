@@ -10,11 +10,13 @@ namespace Shop.Manage.Application.Reception
         protected readonly IUserService _userService;
         protected readonly IAddressService _addressService;
         protected readonly ILogger<UserAppService> _logger;
-        public UserAppService(IUserService userService, ILogger<UserAppService> logger, IAddressService addressService)
+        protected readonly IAvatarService _avatarService;
+        public UserAppService(IUserService userService, ILogger<UserAppService> logger, IAddressService addressService, IAvatarService avatarService)
         {
             _userService = userService;
             _logger = logger;
             _addressService = addressService;
+            _avatarService = avatarService;
         }
         [HttpPut]
         public Response<bool> UpdateUser(AddUserRequest userRequest)
@@ -187,6 +189,99 @@ namespace Shop.Manage.Application.Reception
             resp.Result = list.Adapt<List<UserAddrDto>>();
             _logger.LogError($"(/api/app/user/GetUserAddr response) - {JsonConvert.SerializeObject(resp)}");
             return resp;
+        }
+
+        [HttpGet]
+        public Response<UserMessageDto> GetUser()
+        {
+            var user = UserHelper.GetUser();
+            return new Response<UserMessageDto>
+            {
+                Success = true,
+                Status = "00",
+                Result = user.Adapt<UserMessageDto>()
+            };
+        }
+
+        [HttpPost]
+        public  Response<int> UploadAvatar(IFormFile file)
+        {
+            var fileLength = file.Length;
+            using var stream = file.OpenReadStream();
+            var bytes = new byte[fileLength];
+            stream.Read(bytes, 0, (int)fileLength);
+            // 这里将 bytes 存储到你想要的介质中即可
+            Avart avart = new Avart();
+            avart.ImageMessage = bytes;
+            var newEntity = _avatarService.Add(avart);
+            return new Response<int>()
+            {
+                Status = "00",
+                Success=true,
+                Result = newEntity.Id
+            };
+        }
+
+        [NonUnify, HttpGet, AllowAnonymous]
+        public IActionResult GetAvatar(int resourceId)
+        {
+            var avatar = _avatarService.GetAvartById(resourceId);
+            return new FileContentResult(avatar.ImageMessage, "image/jpeg");
+        }
+
+        [HttpDelete]
+        public Response<bool> DelAvatar(int id)
+        {
+            var resp = new Response<bool>();
+            try
+            {
+                var res = _avatarService.DelAvatarById(id);
+                if (res)
+                {
+                    resp.Success = true;
+                    resp.Status = "00";
+                    resp.Result = true;
+                    return resp;
+                }
+                resp.Success = false;
+                resp.Status = "01";
+                resp.Message = "头像不存在";
+                resp.Result = false;
+                return resp;
+
+            }
+            catch(Exception ex)
+            {
+                resp.Success = false;
+                resp.Status = "99";
+                resp.Message = ex.Message;
+                resp.Result = false;
+                return resp;
+            }
+        }
+
+        [HttpPut]
+        public Response<bool> UpdateAvatar(UpdateAvatarRequest request)
+        {
+            var resp = new Response<bool>();
+            try
+            {
+                var user = UserHelper.GetUser();
+                user.AvatarUrl = request.Url;
+                _userService.UpdateUser(user);
+                resp.Status = "00";
+                resp.Success = true;
+                resp.Result = true;
+                return resp;
+            }
+            catch(Exception ex)
+            {
+                resp.Success = false;
+                resp.Status = "99";
+                resp.Message = ex.Message;
+                resp.Result = false;
+                return resp;
+            }
         }
     }
 }

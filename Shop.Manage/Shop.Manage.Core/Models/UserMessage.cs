@@ -29,9 +29,7 @@ namespace Shop.Manage.Core.Models
         /// <summary>
         /// 头像
         /// </summary>
-        public int? AvartId { get; set; }
-        [ForeignKey("AvartId")]
-        public Avart Avart { get; set; }
+        public string AvatarUrl { get; set; }
         public bool IsDeleted { get; set; }
         public List<UserAddr> UserAddrs { get; set; }
     }
