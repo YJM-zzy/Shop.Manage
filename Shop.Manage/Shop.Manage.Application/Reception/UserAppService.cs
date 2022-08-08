@@ -18,7 +18,7 @@ namespace Shop.Manage.Application.Reception
             _addressService = addressService;
             _avatarService = avatarService;
         }
-        [HttpPut]
+        [HttpPost]
         public Response<bool> UpdateUser(AddUserRequest userRequest)
         {
             _logger.LogError($"(/api/app/user/updateuser request) - {JsonConvert.SerializeObject(userRequest)}");
@@ -103,7 +103,7 @@ namespace Shop.Manage.Application.Reception
             }
         }
 
-        [HttpPut]
+        [HttpPost]
         public Response<bool> UpdateUserAddr(UpdateUserAddrRequest request)
         {
             _logger.LogError($"(/api/app/user/updateuseraddr request) - {JsonConvert.SerializeObject(request)}");
@@ -142,7 +142,7 @@ namespace Shop.Manage.Application.Reception
             }
         }
 
-        [HttpDelete]
+        [HttpPost]
         public Response<bool> DeleteUserAddr(int id)
         {
             _logger.LogError($"(/api/app/user/deleteuseraddr request) - 地址ID：{id}");
@@ -229,7 +229,7 @@ namespace Shop.Manage.Application.Reception
             return new FileContentResult(avatar.ImageMessage, "image/jpeg");
         }
 
-        [HttpDelete]
+        [HttpPost]
         public Response<bool> DelAvatar(int id)
         {
             var resp = new Response<bool>();
@@ -260,7 +260,7 @@ namespace Shop.Manage.Application.Reception
             }
         }
 
-        [HttpPut]
+        [HttpPost]
         public Response<bool> UpdateAvatar(UpdateAvatarRequest request)
         {
             var resp = new Response<bool>();

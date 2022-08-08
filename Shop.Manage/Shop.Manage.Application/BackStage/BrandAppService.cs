@@ -48,7 +48,7 @@ namespace Shop.Manage.Application.BackStage
             }
         }
 
-        [HttpPut]
+        [HttpPost]
         public Response<bool> UpdateBrand(UpdateBrandRequest request)
         {
             _logger.LogError($"(/api/manage/brand/updatebrand request) - {JsonConvert.SerializeObject(request)}");
@@ -84,7 +84,7 @@ namespace Shop.Manage.Application.BackStage
             }
         }
 
-        [HttpDelete]
+        [HttpGet]
         public Response<List<BrandDto>> GetBrandList()
         {
             var resp =new Response<List<BrandDto>>();
