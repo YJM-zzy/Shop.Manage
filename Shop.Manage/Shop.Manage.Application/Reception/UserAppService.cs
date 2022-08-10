@@ -197,7 +197,7 @@ namespace Shop.Manage.Application.Reception
         /// 获取收货地址
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         public Response<List<AddressInfoResponse>> GetUserAddress()
         {
             var user = UserHelper.GetUser();

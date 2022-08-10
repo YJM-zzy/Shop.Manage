@@ -107,7 +107,7 @@
         </member>
         <member name="M:Shop.Manage.Application.Reception.UserAppService.AddUserAddr(Shop.Manage.Core.Requests.AddUserAddrRequest)">
             <summary>
-            添加收货信息
+            添加收货地址信息
             </summary>
             <param name="request"></param>
             <returns></returns>
