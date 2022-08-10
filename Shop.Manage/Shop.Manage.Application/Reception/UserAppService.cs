@@ -18,6 +18,11 @@ namespace Shop.Manage.Application.Reception
             _addressService = addressService;
             _avatarService = avatarService;
         }
+        /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="userRequest"></param>
+        /// <returns></returns>
         [HttpPost]
         public Response<bool> UpdateUser(AddUserRequest userRequest)
         {
@@ -73,124 +78,10 @@ namespace Shop.Manage.Application.Reception
             }
         }
 
-        [HttpPost]
-        public Response<bool> AddUserAddr(AddUserAddrRequest request)
-        {
-            _logger.LogError($"(/api/app/user/adduseraddr request) - {JsonConvert.SerializeObject(request)}");
-            var resp = new Response<bool>();
-            try
-            {
-                var user = UserHelper.GetUser();
-                var useraddr = request.Adapt<UserAddr>();
-                useraddr.UserId = user.Id;
-                _addressService.Add(useraddr);
-                resp.Success = true;
-                resp.Message = "成功！";
-                resp.Status = "00";
-                resp.Result = true;
-                _logger.LogError($"(/api/app/user/adduseraddr response) - {JsonConvert.SerializeObject(resp)}");
-                return resp;
-                
-            }
-            catch(Exception ex)
-            {
-                resp.Success = false;
-                resp.Message = ex.Message;
-                resp.Status = "99";
-                resp.Result = false;
-                _logger.LogError($"(/api/app/user/adduseraddr response) - {JsonConvert.SerializeObject(resp)}");
-                return resp;
-            }
-        }
-
-        [HttpPost]
-        public Response<bool> UpdateUserAddr(UpdateUserAddrRequest request)
-        {
-            _logger.LogError($"(/api/app/user/updateuseraddr request) - {JsonConvert.SerializeObject(request)}");
-            var resp = new Response<bool>();
-            try
-            {
-                var user = UserHelper.GetUser();
-                var useraddr = request.Adapt<UserAddr>();
-                useraddr.UserId = user.Id;
-                var res = _addressService.Update(useraddr);
-                if(res)
-                {
-                    resp.Success = true;
-                    resp.Message = "成功";
-                    resp.Status = "00";
-                    resp.Result = true;
-                    _logger.LogError($"(/api/app/user/updateuseraddr response) - {JsonConvert.SerializeObject(resp)}");
-                    return resp;
-                }
-                resp.Success = false;
-                resp.Message = "改地址不存在或已经被删除";
-                resp.Status = "01";
-                resp.Result = false;
-                _logger.LogError($"(/api/app/user/updateuseraddr response) - {JsonConvert.SerializeObject(resp)}");
-                return resp;
-
-            }
-            catch(Exception ex)
-            {
-                resp.Success = false;
-                resp.Message = ex.Message;
-                resp.Status = "99";
-                resp.Result = false;
-                _logger.LogError($"(/api/app/user/updateuseraddr response) - {JsonConvert.SerializeObject(resp)}");
-                return resp;
-            }
-        }
-
-        [HttpPost]
-        public Response<bool> DeleteUserAddr(int id)
-        {
-            _logger.LogError($"(/api/app/user/deleteuseraddr request) - 地址ID：{id}");
-            var resp = new Response<bool>();
-            try
-            {
-                var res = _addressService.Delete(id);
-                if(res)
-                {
-                    resp.Success = true;
-                    resp.Message = "成功";
-                    resp.Status = "00";
-                    resp.Result = true;
-                    _logger.LogError($"(/api/app/user/deleteuseraddr response) - {JsonConvert.SerializeObject(resp)}");
-                    return resp;
-                }
-                resp.Success = false;
-                resp.Message = "地址不存在或已经被删除";
-                resp.Status = "01";
-                resp.Result = false;
-                _logger.LogError($"(/api/app/user/deleteuseraddr response) - {JsonConvert.SerializeObject(resp)}");
-                return resp;
-            }
-            catch(Exception ex)
-            {
-                resp.Success = false;
-                resp.Message = ex.Message;
-                resp.Status = "99";
-                resp.Result = false;
-                _logger.LogError($"(/api/app/user/deleteuseraddr response) - {JsonConvert.SerializeObject(resp)}");
-                return resp;
-            }
-
-        }
-
-        [HttpGet]
-        public Response<List<UserAddrDto>> GetUserAddr()
-        {
-            var resp = new Response<List<UserAddrDto>>();
-            var user = UserHelper.GetUser();
-            var list = _addressService.GetAllByUserId(user.Id).ToList();
-            resp.Success = true;
-            resp.Status = "00";
-            resp.Result = list.Adapt<List<UserAddrDto>>();
-            _logger.LogError($"(/api/app/user/GetUserAddr response) - {JsonConvert.SerializeObject(resp)}");
-            return resp;
-        }
-
+        /// <summary>
+        /// 获取用户信息
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public Response<UserMessageDto> GetUser()
         {
@@ -202,7 +93,11 @@ namespace Shop.Manage.Application.Reception
                 Result = user.Adapt<UserMessageDto>()
             };
         }
-
+        /// <summary>
+        /// 上传头像
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
         [HttpPost]
         public  Response<int> UploadAvatar(IFormFile file)
         {
@@ -222,13 +117,22 @@ namespace Shop.Manage.Application.Reception
             };
         }
 
+        /// <summary>
+        /// 获取头像
+        /// </summary>
+        /// <param name="resourceId"></param>
+        /// <returns></returns>
         [NonUnify, HttpGet, AllowAnonymous]
         public IActionResult GetAvatar(int resourceId)
         {
             var avatar = _avatarService.GetAvartById(resourceId);
             return new FileContentResult(avatar.ImageMessage, "image/jpeg");
         }
-
+        /// <summary>
+        /// 删除头像
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost]
         public Response<bool> DelAvatar(int id)
         {
@@ -260,6 +164,11 @@ namespace Shop.Manage.Application.Reception
             }
         }
 
+        /// <summary>
+        /// 修改头像
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         public Response<bool> UpdateAvatar(UpdateAvatarRequest request)
         {
@@ -280,6 +189,175 @@ namespace Shop.Manage.Application.Reception
                 resp.Status = "99";
                 resp.Message = ex.Message;
                 resp.Result = false;
+                return resp;
+            }
+        }
+
+        /// <summary>
+        /// 获取收货地址
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public Response<List<AddressInfoResponse>> GetUserAddress()
+        {
+            var user = UserHelper.GetUser();
+            var addrs = _addressService.GetAllByUserId(user.Id);
+            var addrsDto = addrs.Adapt<List<AddressInfoResponse>>();
+            foreach(var addr in addrsDto)
+            {
+                if (!addr.IsMunicipality)
+                {
+                    addr.AddrCombination = $"{addr.Province}省{addr.City}市{addr.District}区{addr.Town}";
+                }
+                else
+                {
+                    addr.AddrCombination = $"{addr.City}市{addr.District}区{addr.Town}";
+                }
+                
+                addr.Mobile= addr.Mobile.Remove(3, 4).Insert(3, "****");
+            }
+            return new Response<List<AddressInfoResponse>>()
+            {
+                Success = true,
+                Status = "00",
+                Result = addrsDto
+            };
+        }
+
+        /// <summary>
+        /// 删除收货地址
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public Response<bool> DeleteUserAddr(int id)
+        {
+            _logger.LogError($"(/api/app/user/deleteuseraddr request) - 地址ID：{id}");
+            var resp = new Response<bool>();
+            try
+            {
+                var res = _addressService.Delete(id);
+                if (res)
+                {
+                    resp.Success = true;
+                    resp.Message = "成功";
+                    resp.Status = "00";
+                    resp.Result = true;
+                    _logger.LogError($"(/api/app/user/deleteuseraddr response) - {JsonConvert.SerializeObject(resp)}");
+                    return resp;
+                }
+                resp.Success = false;
+                resp.Message = "地址不存在或已经被删除";
+                resp.Status = "01";
+                resp.Result = false;
+                _logger.LogError($"(/api/app/user/deleteuseraddr response) - {JsonConvert.SerializeObject(resp)}");
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Success = false;
+                resp.Message = ex.Message;
+                resp.Status = "99";
+                resp.Result = false;
+                _logger.LogError($"(/api/app/user/deleteuseraddr response) - {JsonConvert.SerializeObject(resp)}");
+                return resp;
+            }
+
+        }
+
+        /// <summary>
+        /// 修改收货地址
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public Response<bool> UpdateUserAddr(UpdateUserAddrRequest request)
+        {
+            _logger.LogError($"(/api/app/user/updateuseraddr request) - {JsonConvert.SerializeObject(request)}");
+            var resp = new Response<bool>();
+            try
+            {
+                var user = UserHelper.GetUser();
+                var useraddr = request.Adapt<UserAddr>();
+                useraddr.UserId = user.Id;
+                if (request.IsDefault)
+                {
+                    var addr = _addressService.GetDefaultAddr(user.Id);
+                    if (addr != null)
+                    {
+                        addr.IsDefault = false;
+                        _addressService.Update(addr);
+                    }
+                }
+                var res = _addressService.Update(useraddr);
+                if (res)
+                {
+                    resp.Success = true;
+                    resp.Message = "成功";
+                    resp.Status = "00";
+                    resp.Result = true;
+                    _logger.LogError($"(/api/app/user/updateuseraddr response) - {JsonConvert.SerializeObject(resp)}");
+                    return resp;
+                }
+                resp.Success = false;
+                resp.Message = "改地址不存在或已经被删除";
+                resp.Status = "01";
+                resp.Result = false;
+                _logger.LogError($"(/api/app/user/updateuseraddr response) - {JsonConvert.SerializeObject(resp)}");
+                return resp;
+
+            }
+            catch (Exception ex)
+            {
+                resp.Success = false;
+                resp.Message = ex.Message;
+                resp.Status = "99";
+                resp.Result = false;
+                _logger.LogError($"(/api/app/user/updateuseraddr response) - {JsonConvert.SerializeObject(resp)}");
+                return resp;
+            }
+        }
+
+        /// <summary>
+        /// 添加收货地址信息
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public Response<bool> AddUserAddr(AddUserAddrRequest request)
+        {
+            _logger.LogError($"(/api/app/user/adduseraddr request) - {JsonConvert.SerializeObject(request)}");
+            var resp = new Response<bool>();
+            try
+            {
+                var user = UserHelper.GetUser();
+                var useraddr = request.Adapt<UserAddr>();
+                useraddr.UserId = user.Id;
+                var addrs = _addressService.GetAllByUserId(user.Id);
+                if(addrs.ToList().Count <= 0)
+                {
+                    useraddr.IsDefault = true;
+                }
+                else
+                {
+                    useraddr.IsDefault = false;
+                }
+                _addressService.Add(useraddr);
+                resp.Success = true;
+                resp.Message = "成功！";
+                resp.Status = "00";
+                resp.Result = true;
+                _logger.LogError($"(/api/app/user/adduseraddr response) - {JsonConvert.SerializeObject(resp)}");
+                return resp;
+
+            }
+            catch (Exception ex)
+            {
+                resp.Success = false;
+                resp.Message = ex.Message;
+                resp.Status = "99";
+                resp.Result = false;
+                _logger.LogError($"(/api/app/user/adduseraddr response) - {JsonConvert.SerializeObject(resp)}");
                 return resp;
             }
         }

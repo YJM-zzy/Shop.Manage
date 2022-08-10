@@ -59,5 +59,10 @@ namespace Shop.Manage.Application.UserService.User
             }
             return false;
         }
+
+        public UserAddr GetDefaultAddr(int userid)
+        {
+            return _respository.FirstOrDefault(x => x.IsDefault && x.IsDefault && x.UserId == userid);
+        }
     }
 }

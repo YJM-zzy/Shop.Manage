@@ -13,5 +13,6 @@ namespace Shop.Manage.Application.UserService.User
         bool Delete(int id);
         UserAddr Get(int id);
         IQueryable<UserAddr> GetAllByUserId(int userId);
+        UserAddr GetDefaultAddr(int userid);
     }
 }

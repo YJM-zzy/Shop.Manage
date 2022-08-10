@@ -44,5 +44,73 @@
             收货人
             </summary>
         </member>
+        <member name="M:Shop.Manage.Application.Reception.UserAppService.UpdateUser(Shop.Manage.Core.Requests.AddUserRequest)">
+            <summary>
+            修改用户信息
+            </summary>
+            <param name="userRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Shop.Manage.Application.Reception.UserAppService.GetUser">
+            <summary>
+            获取用户信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Shop.Manage.Application.Reception.UserAppService.UploadAvatar(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            上传头像
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Shop.Manage.Application.Reception.UserAppService.GetAvatar(System.Int32)">
+            <summary>
+            获取头像
+            </summary>
+            <param name="resourceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Shop.Manage.Application.Reception.UserAppService.DelAvatar(System.Int32)">
+            <summary>
+            删除头像
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Shop.Manage.Application.Reception.UserAppService.UpdateAvatar(Shop.Manage.Core.Requests.UpdateAvatarRequest)">
+            <summary>
+            修改头像
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Shop.Manage.Application.Reception.UserAppService.GetUserAddress">
+            <summary>
+            获取收货地址
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Shop.Manage.Application.Reception.UserAppService.DeleteUserAddr(System.Int32)">
+            <summary>
+            删除收货地址
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Shop.Manage.Application.Reception.UserAppService.UpdateUserAddr(Shop.Manage.Core.Requests.UpdateUserAddrRequest)">
+            <summary>
+            修改收货地址
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Shop.Manage.Application.Reception.UserAppService.AddUserAddr(Shop.Manage.Core.Requests.AddUserAddrRequest)">
+            <summary>
+            添加收货信息
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

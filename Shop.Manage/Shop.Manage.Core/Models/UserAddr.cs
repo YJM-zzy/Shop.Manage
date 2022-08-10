@@ -55,5 +55,17 @@ namespace Shop.Manage.Core.Models
         /// 删除标识
         /// </summary>
         public bool IsDeleted { get; set; }
+        /// <summary>
+        /// 是否是直辖市
+        /// </summary>
+        public bool IsMunicipality { get; set; }
+        /// <summary>
+        /// 是否默认
+        /// </summary>
+        public bool IsDefault { get; set; }
+        /// <summary>
+        /// 标签
+        /// </summary>
+        public string Tag { get; set; }
     }
 }

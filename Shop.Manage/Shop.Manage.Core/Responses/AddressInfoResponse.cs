@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop.Manage.Core.Requests
+namespace Shop.Manage.Core.Responses
 {
-    public class UpdateUserAddrRequest
+    public class AddressInfoResponse
     {
         public int Id { get; set; }
         public string Country { get; set; }
@@ -17,6 +17,9 @@ namespace Shop.Manage.Core.Requests
         public string Detail { get; set; }
         public string Mobile { get; set; }
         public string Name { get; set; }
+        public string AddrCombination { get; set; }
+        public bool IsMunicipality { get; set; }
         public bool IsDefault { get; set; }
+        public string Tag { get; set; }
     }
 }
