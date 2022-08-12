@@ -16,6 +16,7 @@ namespace Shop.Manage.Core.Responses
         public string Town { get; set; }
         public string Detail { get; set; }
         public string Mobile { get; set; }
+        public string MobileHide { get; set; }
         public string Name { get; set; }
         public string AddrCombination { get; set; }
         public bool IsMunicipality { get; set; }

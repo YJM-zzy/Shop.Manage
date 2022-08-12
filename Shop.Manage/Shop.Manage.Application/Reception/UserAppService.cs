@@ -214,7 +214,7 @@ namespace Shop.Manage.Application.Reception
                     addr.AddrCombination = $"{addr.City}市{addr.District}区{addr.Town}";
                 }
                 
-                addr.Mobile= addr.Mobile.Remove(3, 4).Insert(3, "****");
+                addr.MobileHide = addr.Mobile.Remove(3, 4).Insert(3, "****");
             }
             return new Response<List<AddressInfoResponse>>()
             {
