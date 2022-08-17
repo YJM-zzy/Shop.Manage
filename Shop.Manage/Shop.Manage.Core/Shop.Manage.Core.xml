@@ -184,11 +184,6 @@
             删除标识
             </summary>
         </member>
-        <member name="P:Shop.Manage.Core.Models.UserAddr.IsMunicipality">
-            <summary>
-            是否是直辖市
-            </summary>
-        </member>
         <member name="P:Shop.Manage.Core.Models.UserAddr.IsDefault">
             <summary>
             是否默认

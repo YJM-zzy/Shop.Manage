@@ -27,7 +27,7 @@ namespace Shop.Manage.Application.UserService.User
         public bool Delete(int id)
         {
             var useraddr = Get(id);
-            if(useraddr != null)
+            if (useraddr != null)
             {
                 useraddr.IsDeleted = true;
                 useraddr.UpdatedTime = DateTime.Now;
@@ -44,25 +44,19 @@ namespace Shop.Manage.Application.UserService.User
 
         public IQueryable<UserAddr> GetAllByUserId(int userId)
         {
-            return _respository.Where(w => w.UserId == userId && !w.IsDeleted);
+            return _respository.Where(w => w.UserId == userId && !w.IsDeleted).OrderByDescending(x=>x.IsDefault);
         }
 
         public bool Update(UserAddr userAddr)
         {
-            var useraddr = Get(userAddr.Id);
-            if(userAddr != null)
-            {
-                useraddr = userAddr;
-                useraddr.UpdatedTime = DateTime.Now;
-                Update(useraddr);
-                return true;
-            }
-            return false;
+            userAddr.UpdatedTime = DateTime.Now;
+            _respository.Update(userAddr);
+            return true;
         }
 
         public UserAddr GetDefaultAddr(int userid)
         {
-            return _respository.FirstOrDefault(x => x.IsDefault && x.IsDefault && x.UserId == userid);
+            return _respository.FirstOrDefault(x => x.UserId == userid && x.IsDefault);
         }
     }
 }

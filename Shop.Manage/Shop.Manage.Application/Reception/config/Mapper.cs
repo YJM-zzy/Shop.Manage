@@ -12,6 +12,15 @@ namespace Shop.Manage.Application.Reception.config
         {
             config.ForType<AddUserRequest, UserMessage>()
                 .Map(dest => dest.Password, src => MD5Encryption.Encrypt(src.Password,false));
+            config.ForType<Area, AreaResponse>()
+                .Map(dest => dest.Label, src => src.Name)
+                .Map(dest=>dest.Value, src => src.AreaId);
+            config.ForType<City, AreaResponse>()
+                .Map(dest => dest.Label, src => src.Name)
+                .Map(dest => dest.Value, src => src.CityId);
+            config.ForType<Province, AreaResponse>()
+                .Map(dest => dest.Label, src => src.Name)
+                .Map(dest => dest.Value, src => src.ProvinceId);
         }
     }
 }

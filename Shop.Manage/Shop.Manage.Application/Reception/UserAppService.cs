@@ -11,12 +11,14 @@ namespace Shop.Manage.Application.Reception
         protected readonly IAddressService _addressService;
         protected readonly ILogger<UserAppService> _logger;
         protected readonly IAvatarService _avatarService;
-        public UserAppService(IUserService userService, ILogger<UserAppService> logger, IAddressService addressService, IAvatarService avatarService)
+        protected readonly IAreaService _areaService;
+        public UserAppService(IUserService userService, ILogger<UserAppService> logger, IAddressService addressService, IAvatarService avatarService, IAreaService areaService)
         {
             _userService = userService;
             _logger = logger;
             _addressService = addressService;
             _avatarService = avatarService;
+            _areaService = areaService;
         }
         /// <summary>
         /// 修改用户信息
@@ -205,15 +207,14 @@ namespace Shop.Manage.Application.Reception
             var addrsDto = addrs.Adapt<List<AddressInfoResponse>>();
             foreach(var addr in addrsDto)
             {
-                if (!addr.IsMunicipality)
+                if(addr.Province == addr.City)
                 {
-                    addr.AddrCombination = $"{addr.Province}省{addr.City}市{addr.District}区{addr.Town}";
+                    addr.AddrCombination = $"{_areaService.GetProvinceNameById(addr.Province)}{_areaService.GetAreaNameById(addr.District)}";
                 }
                 else
                 {
-                    addr.AddrCombination = $"{addr.City}市{addr.District}区{addr.Town}";
+                    addr.AddrCombination = $"{_areaService.GetProvinceNameById(addr.Province)}{_areaService.GetCityNameById(addr.City)}{_areaService.GetAreaNameById(addr.District)}";
                 }
-                
                 addr.MobileHide = addr.Mobile.Remove(3, 4).Insert(3, "****");
             }
             return new Response<List<AddressInfoResponse>>()
@@ -275,21 +276,26 @@ namespace Shop.Manage.Application.Reception
         {
             _logger.LogError($"(/api/app/user/updateuseraddr request) - {JsonConvert.SerializeObject(request)}");
             var resp = new Response<bool>();
+            var res = false;
             try
             {
                 var user = UserHelper.GetUser();
                 var useraddr = request.Adapt<UserAddr>();
                 useraddr.UserId = user.Id;
+                //UserAddr deaddr = new UserAddr();
                 if (request.IsDefault)
                 {
-                    var addr = _addressService.GetDefaultAddr(user.Id);
-                    if (addr != null)
+                    var deaddr = _addressService.GetDefaultAddr(user.Id);
+                    if (deaddr != null)
                     {
-                        addr.IsDefault = false;
-                        _addressService.Update(addr);
+                        if (deaddr.Id != useraddr.Id)
+                        {
+                            deaddr.IsDefault = false;
+                            _addressService.Update(deaddr);
+                        }
                     }
                 }
-                var res = _addressService.Update(useraddr);
+                res = _addressService.Update( useraddr );
                 if (res)
                 {
                     resp.Success = true;
@@ -334,13 +340,21 @@ namespace Shop.Manage.Application.Reception
                 var useraddr = request.Adapt<UserAddr>();
                 useraddr.UserId = user.Id;
                 var addrs = _addressService.GetAllByUserId(user.Id);
-                if(addrs.ToList().Count <= 0)
+                if(!addrs.ToList().Any())
                 {
                     useraddr.IsDefault = true;
                 }
                 else
                 {
-                    useraddr.IsDefault = false;
+                    if (request.IsDefault)
+                    {
+                        var deaddr = addrs.FirstOrDefault(x => x.IsDefault && !x.IsDeleted);
+                        if(deaddr != null)
+                        {
+                            deaddr.IsDefault = false;
+                            _addressService.Update( deaddr);
+                        }
+                    }
                 }
                 _addressService.Add(useraddr);
                 resp.Success = true;
@@ -360,6 +374,34 @@ namespace Shop.Manage.Application.Reception
                 _logger.LogError($"(/api/app/user/adduseraddr response) - {JsonConvert.SerializeObject(resp)}");
                 return resp;
             }
+        }
+
+        [HttpGet]
+        public Response<List<AreaResponse>> GetAreaList()
+        {
+            var resp = new Response<List<AreaResponse>>();
+            var provinceList = _areaService.GetProvinceList();
+            var areaList = new List<AreaResponse>();
+            if (provinceList.Any())
+            {
+                areaList = provinceList.Adapt<List<AreaResponse>>();
+                foreach(var city in areaList)
+                {
+                    var cityList = _areaService.GetCityListByPid(city.Value); 
+                    var citys = cityList.Adapt<List<AreaResponse>>();
+                    city.Children = citys;
+                    if (city.Children.Any())
+                    {
+                        foreach (var area in city.Children)
+                        {
+                            var areas = _areaService.GetAreaListByCid(area.Value).Adapt<List<AreaResponse>>();
+                            area.Children = areas;
+                        }
+                    }
+                }
+            }
+            resp.Result = areaList;
+            return resp;
         }
     }
 }
